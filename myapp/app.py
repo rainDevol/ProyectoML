@@ -53,7 +53,10 @@ def predict():
         }
         # Obten la predicción del servicio web
         result = get_prediction(data)
-        return render_template('result.html', prediction=result)
+        result_json = json.loads(result)
+        prediction = round(
+            float(result_json['Results']['output1']['value']['Values'][0][-1]), 2)
+        return render_template('form.html', prediction=prediction)
 
     return render_template('form.html')
 
