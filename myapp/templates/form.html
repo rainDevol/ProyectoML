@@ -82,6 +82,37 @@
             font-size: 18px;
             color: #777;
         }
+
+        .styled-select {
+            width: 75%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .styled-select select {
+            background: transparent;
+            border: none;
+            width: 100%;
+            outline: none;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .styled-select:after {
+            content: '▼';
+            /* Flecha hacia abajo ▼ */
+            font-size: 14px;
+            color: #333;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 
@@ -92,53 +123,112 @@
             <div class="form-column">
                 <div class="form-group">
                     <label for="modelo">Modelo:</label>
-                    <input type="text" name="modelo" required>
+                    <input type="text" name="modelo" required
+                        value="{{ request.form['modelo'] if 'modelo' in request.form else '' }}">
                 </div>
                 <div class="form-group">
                     <label for="generacion">Generación:</label>
-                    <input type="text" name="generacion" required>
+                    <select name="generacion" required class="styled-select">
+                        <option value="i3" {% if "i3"==request.form['generacion'] %} selected {% endif %}>i3</option>
+                        <option value="i5" {% if "i5"==request.form['generacion'] %} selected {% endif %}>i5</option>
+                        <option value="i7" {% if "i7"==request.form['generacion'] %} selected {% endif %}>i7</option>
+                        <option value="R" {% if "R"==request.form['generacion'] %} selected {% endif %}>R</option>
+                        <option value="R3" {% if "R3"==request.form['generacion'] %} selected {% endif %}>R3</option>
+                        <option value="R5" {% if "R5"==request.form['generacion'] %} selected {% endif %}>R5</option>
+                        <option value="R7" {% if "R7"==request.form['generacion'] %} selected {% endif %}>R7</option>
+                        <option value="R9" {% if "R9"==request.form['generacion'] %} selected {% endif %}>R9</option>
+                        <option value="i9" {% if "i9"==request.form['generacion'] %} selected {% endif %}>i9</option>
+                        <option value="Celeron" {% if "Celeron"==request.form['generacion'] %} selected {% endif %}>
+                            Celeron</option>
+                        <option value="M1" {% if "M1"==request.form['generacion'] %} selected {% endif %}>M1</option>
+                        <option value="M2" {% if "M2"==request.form['generacion'] %} selected {% endif %}>M2</option>
+                        <option value="MediaTek" {% if "MediaTek"==request.form['generacion'] %} selected {% endif %}>
+                            MediaTek</option>
+                        <option value="ICM5" {% if "ICM5"==request.form['generacion'] %} selected {% endif %}>ICM5
+                        </option>
+                        <option value="AMD" {% if "AMD"==request.form['generacion'] %} selected {% endif %}>AMD</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="serie">Serie:</label>
-                    <input type="text" name="serie" required>
+                    <input type="text" name="serie" required
+                        value="{{ request.form['serie'] if 'serie' in request.form else '' }}">
                 </div>
                 <div class="form-group">
                     <label for="tipo_grafica">Tipo de Gráfica:</label>
-                    <input type="text" name="tipo_grafica" required>
+                    <div class="styled-select">
+                        <select name="tipo_grafica" required>
+                            <option value="Integrada" {% if "Integrada"==request.form['tipo_grafica'] %} selected {%
+                                endif %}>Integrada</option>
+                            <option value="Dedicada" {% if "Dedicada"==request.form['tipo_grafica'] %} selected {% endif
+                                %}>Dedicada</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="ram_gb">RAM (GB):</label>
-                    <input type="number" name="ram_gb" required>
+                    <input type="number" name="ram_gb" required
+                        value="{{ request.form['ram_gb'] if 'ram_gb' in request.form else '' }}">
                 </div>
                 <div class="form-group">
                     <label for="cpu_nucleos">CPU Núcleos:</label>
-                    <input type="number" name="cpu_nucleos" required>
+                    <input type="number" name="cpu_nucleos" required
+                        value="{{ request.form['cpu_nucleos'] if 'cpu_nucleos' in request.form else '' }}">
                 </div>
             </div>
             <div class="form-column">
                 <div class="form-group">
                     <label for="tipo_almacenamiento">Tipo de Almacenamiento:</label>
-                    <input type="text" name="tipo_almacenamiento" required>
+                    <select name="tipo_almacenamiento" required class="styled-select">
+                        <option value="HDD" {% if "HDD"==request.form['tipo_almacenamiento'] %} selected {% endif %}>HDD
+                        </option>
+                        <option value="SSD" {% if "SSD"==request.form['tipo_almacenamiento'] %} selected {% endif %}>SSD
+                        </option>
+                        <option value="SSD/HDD" {% if "SSD/HDD"==request.form['tipo_almacenamiento'] %} selected {%
+                            endif %}>SSD/HDD</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="capacidad_disco_gb">Capacidad de Disco (GB):</label>
-                    <input type="number" name="capacidad_disco_gb" required>
+                    <input type="number" name="capacidad_disco_gb" required
+                        value="{{ request.form['capacidad_disco_gb'] if 'capacidad_disco_gb' in request.form else '' }}">
                 </div>
                 <div class="form-group">
                     <label for="c_energetico">C Eficiencia Energética:</label>
-                    <input type="text" name="c_energetico" required>
+                    <select name="c_energetico" required class="styled-select">
+                        <option value="A" {% if "A"==request.form['c_energetico'] %} selected {% endif %}>A</option>
+                        <option value="B" {% if "B"==request.form['c_energetico'] %} selected {% endif %}>B</option>
+                        <option value="C" {% if "C"==request.form['c_energetico'] %} selected {% endif %}>C</option>
+                        <option value="D" {% if "D"==request.form['c_energetico'] %} selected {% endif %}>D</option>
+                        <option value="E" {% if "E"==request.form['c_energetico'] %} selected {% endif %}>E</option>
+                        <option value="F" {% if "F"==request.form['c_energetico'] %} selected {% endif %}>F</option>
+                        <option value="G" {% if "G"==request.form['c_energetico'] %} selected {% endif %}>G</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="camara">Cámara:</label>
-                    <input type="text" name="camara" required>
+                    <select name="camara" required class="styled-select">
+                        <option value="Si" {% if "Si"==request.form['camara'] %} selected {% endif %}>Si</option>
+                        <option value="No" {% if "No"==request.form['camara'] %} selected {% endif %}>No</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="tamano_pantalla">Tamaño de Pantalla:</label>
-                    <input type="number" name="tamano_pantalla" required>
+                    <input type="number" name="tamano_pantalla" required
+                        value="{{ request.form['tamano_pantalla'] if 'tamano_pantalla' in request.form else '' }}">
                 </div>
                 <div class="form-group">
                     <label for="pantalla_tactil">Pantalla Táctil:</label>
-                    <input type="text" name="pantalla_tactil" required>
+                    <div class="styled-select">
+                        <select name="pantalla_tactil" required>
+                            <option value="No" {% if "No"==request.form['pantalla_tactil'] %} selected {% endif %}>No
+                            </option>
+                            <option value="Si" {% if "Si"==request.form['pantalla_tactil'] %} selected {% endif %}>Si
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
             </div>
@@ -148,7 +238,7 @@
     </form>
     <div class="result-box">
         <h1>Resultado de la Predicción</h1>
-        <p>El precio predicho es: {{ prediction }}</p>
+        <p>El precio de la laptop es: {{ prediction }}</p>
     </div>
 </body>
 
